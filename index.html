@@ -15,25 +15,39 @@
   --o:#FF6500;--o2:#FF8C00;--o3:#FFB300;
   --grad:linear-gradient(110deg,#FF6500,#FF8C00,#FFB300);
   --grad2:linear-gradient(135deg,#FF6500,#FF8C00);
-  --og:rgba(255,101,0,0.14);--ob:rgba(255,101,0,0.35);
+  --og:rgba(255,101,0,0.14);
   --bg:#060814;--bg2:#0A0E1E;--bg3:#0F1428;--bg4:#151A32;--card:#0C1022;
   --brd:rgba(255,255,255,0.07);--bro:rgba(255,101,0,0.45);--bro2:rgba(255,101,0,0.2);
   --t:#EEF0FF;--t2:#6E7499;--t3:#353A58;
   --green:#2ECC71;--blue:#4A9EFF;--gold:#FFB300;--purple:#8B5CF6;
   --shadow-o:0 8px 32px rgba(255,101,0,0.4);
 }
-html,body{width:100%;height:100%;background:var(--bg);font-family:'Barlow',sans-serif;overflow:hidden;position:fixed;}
+html,body{
+  width:100%;height:100%;
+  background:var(--bg);
+  font-family:'Barlow',sans-serif;
+  overflow:hidden;position:fixed;
+  /* push content below the real iOS status bar */
+  padding-top:env(safe-area-inset-top);
+  padding-bottom:env(safe-area-inset-bottom);
+}
 .app{width:100%;height:100%;position:relative;overflow:hidden;}
-.screen{position:absolute;inset:0;display:flex;flex-direction:column;opacity:0;pointer-events:none;transition:opacity 0.28s ease;overflow:hidden;background:var(--bg);}
+.screen{
+  position:absolute;inset:0;
+  display:flex;flex-direction:column;
+  opacity:0;pointer-events:none;
+  transition:opacity 0.28s ease;
+  overflow:hidden;
+  background:var(--bg);
+  /* also respect safe area per-screen */
+  padding-top:env(safe-area-inset-top);
+}
 .screen.active{opacity:1;pointer-events:all;}
 
-/* STATUS BAR — sits at very top, real iOS status bar shows through */
-.sb{height:50px;display:flex;justify-content:space-between;align-items:flex-end;padding:0 24px 8px;flex-shrink:0;position:relative;z-index:5;}
-.sb-t{font-size:15px;font-weight:700;color:transparent;letter-spacing:0.3px;}
-.sb-i{display:flex;gap:5px;align-items:center;opacity:0;}
-
+/* No fake status bar at all — remove .sb entirely */
 .scroll{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
 .scroll::-webkit-scrollbar{display:none;}
+
 .logo{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:5px;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;filter:drop-shadow(0 0 10px rgba(255,101,0,0.5));}
 .tag{padding:5px 13px;border-radius:30px;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;display:inline-block;}
 .to{background:rgba(255,101,0,0.12);color:var(--o2);border:1px solid rgba(255,101,0,0.35);}
@@ -41,8 +55,6 @@ html,body{width:100%;height:100%;background:var(--bg);font-family:'Barlow',sans-
 .tg{background:rgba(255,179,0,0.1);color:var(--gold);border:1px solid rgba(255,179,0,0.3);}
 .score-big{font-family:'Bebas Neue',sans-serif;font-size:80px;line-height:1;letter-spacing:2px;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
 .score-big .den{font-size:34px;-webkit-text-fill-color:var(--t3);}
-.card-base{background:var(--card);border-radius:18px;border:1px solid var(--brd);position:relative;overflow:hidden;}
-.card-base::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,rgba(255,101,0,0.4),rgba(255,101,0,0.08),transparent);}
 
 /* NAV */
 .nav{display:flex;justify-content:space-around;align-items:center;padding:8px 0 32px;background:rgba(4,5,14,0.98);border-top:1px solid rgba(255,101,0,0.08);flex-shrink:0;position:relative;z-index:10;}
@@ -57,7 +69,7 @@ html,body{width:100%;height:100%;background:var(--bg);font-family:'Barlow',sans-
 .nav-cam svg{stroke:white;fill:none;stroke-width:2.2;width:22px;height:22px;}
 
 /* HOME */
-.top-bar{padding:4px 20px 14px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;}
+.top-bar{padding:8px 20px 14px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;}
 .user-level{display:flex;align-items:center;gap:10px;}
 .av-wrap{position:relative;}
 .av{width:42px;height:42px;border-radius:50%;background:var(--bg4);border:2px solid var(--o);display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:18px;color:var(--o);}
@@ -111,7 +123,7 @@ html,body{width:100%;height:100%;background:var(--bg);font-family:'Barlow',sans-
 .rate-btn svg{stroke:white;fill:none;stroke-width:2.2;width:20px;height:20px;}
 
 /* WORKOUT */
-.top-bar2{padding:4px 20px 14px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;}
+.top-bar2{padding:8px 20px 14px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;}
 .pg-title{font-family:'Barlow Condensed',sans-serif;font-size:28px;font-weight:900;letter-spacing:1.5px;text-transform:uppercase;color:var(--t);}
 .wk-pad{padding:0 18px 20px;}
 .today-wk-card{background:linear-gradient(135deg,rgba(139,92,246,0.3),rgba(139,92,246,0.1));border:1px solid rgba(139,92,246,0.3);border-radius:18px;padding:16px;margin-bottom:16px;display:flex;align-items:center;gap:14px;}
@@ -142,7 +154,7 @@ html,body{width:100%;height:100%;background:var(--bg);font-family:'Barlow',sans-
 .rg-ex-sets{font-size:11px;color:var(--t3);}
 
 /* ACTIVE WORKOUT */
-.aw-hd{padding:4px 20px 0;flex-shrink:0;}
+.aw-hd{padding:8px 20px 0;flex-shrink:0;}
 .aw-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:2px;}
 .aw-back{font-size:13px;color:var(--t2);cursor:pointer;display:flex;align-items:center;gap:4px;}
 .aw-back svg{stroke:var(--t2);fill:none;stroke-width:2;width:16px;height:16px;}
@@ -178,26 +190,126 @@ html,body{width:100%;height:100%;background:var(--bg);font-family:'Barlow',sans-
 .fin-btn svg{stroke:white;fill:none;stroke-width:2.2;width:20px;height:20px;}
 .fin-note{text-align:center;font-size:11px;color:var(--t3);margin-bottom:18px;flex-shrink:0;}
 
-/* CAMERA — fully transparent snapchat style */
-#camera{background:transparent !important;}
-.cam-top{display:flex;justify-content:space-between;align-items:center;padding:14px 16px 8px;flex-shrink:0;position:relative;z-index:10;}
-.cam-logo-pill{background:rgba(0,0,0,0.4);border:1.5px solid rgba(255,101,0,0.7);border-radius:30px;padding:8px 18px;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);}
+/* CAMERA — full screen, no black bars, transparent bg */
+#camera{
+  background:#000 !important;
+  padding-top:0 !important; /* camera goes edge to edge */
+}
+.cam-top{
+  position:absolute;top:0;left:0;right:0;
+  display:flex;justify-content:space-between;align-items:flex-end;
+  padding:calc(env(safe-area-inset-top) + 10px) 16px 12px;
+  z-index:20;
+}
+.cam-logo-pill{background:rgba(0,0,0,0.45);border:1.5px solid rgba(255,101,0,0.7);border-radius:30px;padding:8px 18px;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);}
 .cam-logo{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:4px;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
-.cam-close-pill{background:rgba(0,0,0,0.4);border:1px solid rgba(255,255,255,0.25);border-radius:30px;padding:8px 16px;cursor:pointer;display:flex;align-items:center;gap:6px;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);}
+.cam-close-pill{background:rgba(0,0,0,0.45);border:1px solid rgba(255,255,255,0.25);border-radius:30px;padding:8px 16px;cursor:pointer;display:flex;align-items:center;gap:6px;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);}
 .cam-close-pill svg{stroke:white;fill:none;stroke-width:2;width:14px;height:14px;}
 .cam-close-pill span{font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:white;}
-.cam-vf{flex:1;position:relative;display:flex;align-items:stretch;margin:0 10px;}
-.cam-frame{position:absolute;inset:0;border-radius:32px;border:3px solid #FF6500;box-shadow:0 0 35px rgba(255,101,0,0.9),0 0 90px rgba(255,101,0,0.4),0 0 180px rgba(255,101,0,0.15);pointer-events:none;animation:framePulse 2.5s ease infinite;z-index:2;background:transparent;}
-@keyframes framePulse{0%,100%{box-shadow:0 0 28px rgba(255,101,0,0.8),0 0 70px rgba(255,101,0,0.3);border-color:#FF6500;}50%{box-shadow:0 0 55px rgba(255,140,0,1),0 0 130px rgba(255,101,0,0.55),0 0 240px rgba(255,101,0,0.2);border-color:#FF9500;}}
-.cam-hint{position:absolute;top:18px;left:50%;transform:translateX(-50%);font-size:13px;color:white;white-space:nowrap;font-weight:700;letter-spacing:0.5px;z-index:6;background:rgba(0,0,0,0.5);padding:5px 16px;border-radius:20px;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.1);}
-.cam-score-bar{position:absolute;bottom:16px;left:12px;right:12px;z-index:7;}
-.csb-inner{background:rgba(4,5,14,0.82);border:1px solid rgba(255,101,0,0.4);border-radius:20px;padding:14px 16px;backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);}
+
+/* Video fills entire screen */
+#cam-video{
+  position:absolute;inset:0;
+  width:100%;height:100%;
+  object-fit:cover;
+  /* fix mirror on front cam */
+  transform:scaleX(-1);
+  z-index:1;
+}
+/* When using back cam, un-mirror */
+#cam-video.back{transform:scaleX(1);}
+
+.cam-hint{
+  position:absolute;top:calc(env(safe-area-inset-top) + 80px);
+  left:50%;transform:translateX(-50%);
+  font-size:13px;color:white;white-space:nowrap;font-weight:700;
+  z-index:10;background:rgba(0,0,0,0.5);padding:5px 16px;border-radius:20px;
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border:1px solid rgba(255,255,255,0.1);
+}
+
+/* Glowing frame — full screen minus small margin */
+.cam-frame{
+  position:absolute;
+  top:calc(env(safe-area-inset-top) + 70px);
+  left:10px;right:10px;
+  bottom:calc(env(safe-area-inset-bottom) + 130px);
+  border-radius:32px;
+  border:3px solid #FF6500;
+  box-shadow:
+    0 0 35px rgba(255,101,0,0.8),
+    0 0 90px rgba(255,101,0,0.35),
+    0 0 180px rgba(255,101,0,0.1);
+  pointer-events:none;
+  animation:fp 2.5s ease infinite;
+  z-index:5;
+}
+@keyframes fp{
+  0%,100%{box-shadow:0 0 28px rgba(255,101,0,0.7),0 0 70px rgba(255,101,0,0.25);border-color:#FF6500;}
+  50%{box-shadow:0 0 55px rgba(255,140,0,1),0 0 130px rgba(255,101,0,0.5),0 0 240px rgba(255,101,0,0.2);border-color:#FF9500;}
+}
+
+/* Upload button — shows when no photo, centered in frame */
+.cam-upload-btn{
+  position:absolute;bottom:calc(env(safe-area-inset-bottom) + 220px);
+  left:50%;transform:translateX(-50%);
+  z-index:10;
+  background:rgba(0,0,0,0.5);
+  border:1px solid rgba(255,101,0,0.5);
+  border-radius:30px;
+  padding:10px 22px;
+  display:flex;align-items:center;gap:8px;
+  cursor:pointer;
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+}
+.cam-upload-btn input{display:none;}
+.cam-upload-btn span{font-family:'Barlow Condensed',sans-serif;font-size:15px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,101,0,0.9);}
+.cam-upload-btn svg{stroke:rgba(255,101,0,0.9);fill:none;stroke-width:2;width:18px;height:18px;}
+
+/* Preview image fills frame area */
+#cam-preview{
+  position:absolute;
+  top:calc(env(safe-area-inset-top) + 70px);
+  left:10px;right:10px;
+  bottom:calc(env(safe-area-inset-bottom) + 130px);
+  border-radius:30px;
+  object-fit:cover;
+  display:none;
+  z-index:3;
+}
+.cam-retake{
+  position:absolute;bottom:calc(env(safe-area-inset-bottom) + 220px);
+  left:50%;transform:translateX(-50%);
+  background:rgba(0,0,0,0.55);border:1px solid rgba(255,255,255,0.2);
+  border-radius:30px;padding:10px 22px;
+  font-family:'Barlow Condensed',sans-serif;font-size:15px;font-weight:700;
+  letter-spacing:1.5px;text-transform:uppercase;color:white;cursor:pointer;
+  display:none;z-index:10;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+}
+
+/* Score bar inside frame bottom */
+.cam-score-bar{
+  position:absolute;
+  bottom:calc(env(safe-area-inset-bottom) + 148px);
+  left:22px;right:22px;
+  z-index:10;display:none;
+}
+.csb-inner{background:rgba(4,5,14,0.88);border:1px solid rgba(255,101,0,0.4);border-radius:20px;padding:14px 16px;backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);}
 .csb-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
 .csb-score{font-family:'Bebas Neue',sans-serif;font-size:42px;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:1px;line-height:1;}
 .csb-score small{font-size:20px;-webkit-text-fill-color:var(--t3);}
 .csb-label{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--t3);}
 .csb-tags{display:flex;gap:6px;}
-.cam-ctrl{display:flex;align-items:center;justify-content:space-around;padding:16px 44px 44px;flex-shrink:0;position:relative;z-index:10;}
+
+/* Bottom shutter controls */
+.cam-ctrl{
+  position:absolute;bottom:0;left:0;right:0;
+  display:flex;align-items:center;justify-content:space-around;
+  padding:16px 44px calc(env(safe-area-inset-bottom) + 20px);
+  z-index:20;
+  background:linear-gradient(transparent,rgba(0,0,0,0.7));
+}
 .cam-side-btn{width:50px;height:50px;border-radius:50%;background:rgba(0,0,0,0.45);border:1px solid rgba(255,255,255,0.25);display:flex;align-items:center;justify-content:center;cursor:pointer;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);}
 .cam-side-btn svg{stroke:white;fill:none;stroke-width:1.8;width:22px;height:22px;}
 .shutter{width:80px;height:80px;border-radius:50%;background:white;border:4px solid rgba(255,255,255,0.3);cursor:pointer;box-shadow:0 0 0 10px rgba(255,255,255,0.08),0 0 30px rgba(0,0,0,0.3);position:relative;transition:transform 0.15s,opacity 0.15s;}
@@ -220,7 +332,7 @@ html,body{width:100%;height:100%;background:var(--bg);font-family:'Barlow',sans-
 .az-pct{font-size:12px;color:var(--t3);text-align:center;font-weight:700;letter-spacing:2px;}
 
 /* RESULTS */
-#results .res-hd{padding:4px 22px 0;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;height:50px;}
+#results .res-hd{padding:8px 22px 0;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;}
 .back-btn{display:flex;align-items:center;gap:5px;font-size:14px;color:var(--t2);cursor:pointer;padding:8px 0;}
 .back-btn svg{stroke:var(--t2);fill:none;stroke-width:2;width:18px;height:18px;}
 .res-ttl{font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--t);}
@@ -250,7 +362,7 @@ html,body{width:100%;height:100%;background:var(--bg);font-family:'Barlow',sans-
 .share-btn svg{stroke:white;fill:none;stroke-width:1.8;width:17px;height:17px;}
 
 /* LEADERBOARD */
-#leaderboard .lb-top{padding:4px 20px 14px;flex-shrink:0;height:50px;display:flex;align-items:flex-end;}
+#leaderboard .lb-top{padding:8px 20px 14px;flex-shrink:0;}
 .lb-tabs{display:flex;gap:8px;padding:0 18px;margin-bottom:18px;}
 .lb-tab{flex:1;padding:9px;border-radius:12px;font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--t3);background:var(--bg3);border:1px solid var(--brd);cursor:pointer;text-align:center;}
 .lb-tab.on{background:var(--og);border-color:var(--bro);color:var(--o2);}
@@ -280,7 +392,7 @@ html,body{width:100%;height:100%;background:var(--bg);font-family:'Barlow',sans-
 .lb-score{display:flex;align-items:center;gap:4px;font-family:'Bebas Neue',sans-serif;font-size:22px;color:var(--o2);}
 
 /* MY PUMPS */
-#pump .pump-hd{padding:4px 20px 10px;flex-shrink:0;height:50px;display:flex;align-items:flex-end;}
+#pump .pump-hd{padding:8px 20px 10px;flex-shrink:0;}
 .pump-ttl{font-family:'Barlow Condensed',sans-serif;font-size:30px;font-weight:900;letter-spacing:1.5px;text-transform:uppercase;color:var(--t);}
 .period-row{display:flex;gap:8px;padding:0 18px;margin-bottom:14px;}
 .period-btn{padding:6px 16px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;border:1px solid var(--brd);background:transparent;color:var(--t3);cursor:pointer;}
@@ -307,22 +419,14 @@ html,body{width:100%;height:100%;background:var(--bg);font-family:'Barlow',sans-
 
 <!-- HOME -->
 <div id="home" class="screen active">
-  <div class="sb"><span class="sb-t">9:41</span><div class="sb-i"></div></div>
   <div class="top-bar">
     <div class="user-level">
       <div class="av-wrap"><div class="av">J</div><div class="lv-badge">Lv.12</div></div>
       <div style="display:flex;flex-direction:column;gap:2px;"><div style="font-size:13px;font-weight:700;color:var(--t);">Welcome back 👋</div><div style="font-size:11px;color:var(--t2);">Iron Tier</div></div>
     </div>
-    <div class="top-stats">
-      <div class="top-stat">🔥 <span>7</span></div>
-      <div class="top-stat" style="color:var(--o2);">⚡ <span>2.4K</span></div>
-    </div>
+    <div class="top-stats"><div class="top-stat">🔥 <span>7</span></div><div class="top-stat" style="color:var(--o2);">⚡ <span>2.4K</span></div></div>
   </div>
-  <div class="tab-row">
-    <div class="tab-btn on">For You</div>
-    <div class="tab-btn">Friends</div>
-    <div class="tab-btn">Discovery</div>
-  </div>
+  <div class="tab-row"><div class="tab-btn on">For You</div><div class="tab-btn">Friends</div><div class="tab-btn">Discovery</div></div>
   <div class="scroll">
     <div class="home-pad">
       <div class="pump-hero">
@@ -341,7 +445,7 @@ html,body{width:100%;height:100%;background:var(--bg);font-family:'Barlow',sans-
         <div class="s3card"><div class="s3v">24</div><div class="s3l">Workouts</div></div>
       </div>
       <div class="l14">
-        <div class="l14-top"><div class="l14-title">Last 14 Workouts</div><div style="font-size:12px;color:var(--blue);font-weight:700;cursor:pointer;">View More ›</div></div>
+        <div class="l14-top"><div class="l14-title">Last 14 Workouts</div><div style="font-size:12px;color:var(--blue);font-weight:700;">View More ›</div></div>
         <div class="l14-vol">203,246 <span style="font-size:14px;font-weight:600;color:var(--t2);">lbs volume</span></div>
         <div class="l14-sub">Duration · 14h &nbsp;·&nbsp; Records · 13 &nbsp;·&nbsp; Cal · 850</div>
         <div class="bar-chart"><div class="bc-bar" style="height:40%"></div><div class="bc-bar" style="height:60%"></div><div class="bc-bar" style="height:45%"></div><div class="bc-bar" style="height:80%"></div><div class="bc-bar peak" style="height:100%"></div><div class="bc-bar" style="height:55%"></div><div class="bc-bar" style="height:70%"></div><div class="bc-bar" style="height:30%"></div><div class="bc-bar peak" style="height:90%"></div><div class="bc-bar" style="height:65%"></div><div class="bc-bar" style="height:50%"></div><div class="bc-bar" style="height:75%"></div><div class="bc-bar peak" style="height:95%"></div><div class="bc-bar" style="height:60%"></div></div>
@@ -369,7 +473,6 @@ html,body{width:100%;height:100%;background:var(--bg);font-family:'Barlow',sans-
 
 <!-- WORKOUT -->
 <div id="workout" class="screen">
-  <div class="sb"><span class="sb-t">9:41</span></div>
   <div class="top-bar2"><div class="pg-title">Workouts</div><div class="top-stats"><div class="top-stat">🔥 <span>7</span></div></div></div>
   <div class="scroll">
     <div class="wk-pad">
@@ -414,7 +517,6 @@ html,body{width:100%;height:100%;background:var(--bg);font-family:'Barlow',sans-
 
 <!-- ACTIVE WORKOUT -->
 <div id="activeworkout" class="screen">
-  <div class="sb"><span class="sb-t">9:41</span></div>
   <div class="aw-hd">
     <div class="aw-top"><div class="aw-back" onclick="exitWk()"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>Back</div><div class="aw-tmr" id="tmr">00:00</div></div>
     <div class="aw-day">Today's Workout</div>
@@ -453,32 +555,39 @@ html,body{width:100%;height:100%;background:var(--bg);font-family:'Barlow',sans-
   <div class="fin-note">Snap your pump right when you're done</div>
 </div>
 
-<!-- CAMERA — transparent bg, just UI overlay -->
-<div id="camera" class="screen" style="background:transparent;">
+<!-- CAMERA -->
+<div id="camera" class="screen">
+  <video id="cam-video" autoplay playsinline muted></video>
+  <canvas id="cam-canvas" style="display:none;"></canvas>
   <div class="cam-top">
     <div class="cam-logo-pill"><span class="cam-logo">PUMPD</span></div>
-    <div class="cam-close-pill" onclick="showScreen('home')"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg><span>Capture Pump</span></div>
+    <div class="cam-close-pill" onclick="stopCam();nav('home')"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg><span>Capture Pump</span></div>
   </div>
-  <div class="cam-vf">
-    <div class="cam-frame"></div>
-    <div class="cam-hint">Center your upper body</div>
-    <div class="cam-score-bar" id="cam-score-bar" style="display:none;">
-      <div class="csb-inner">
-        <div class="csb-row"><div class="csb-score" id="csb-score">9.0<small>/10</small></div><div class="csb-label">PUMP<br>SCORE</div></div>
-        <div class="csb-tags"><div class="tag to" style="font-size:10px;padding:4px 10px;">Top Tier</div><div class="tag tw" style="font-size:10px;padding:4px 10px;">Pumped</div><div class="tag tw" style="font-size:10px;padding:4px 10px;">Dialed In</div></div>
-      </div>
+  <div class="cam-hint" id="cam-hint">Center your upper body</div>
+  <div class="cam-frame"></div>
+  <img id="cam-preview" alt="">
+  <!-- Upload from library button -->
+  <label class="cam-upload-btn" id="upload-btn" for="photo-input">
+    <input type="file" id="photo-input" accept="image/*" onchange="handleUpload(event)">
+    <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+    <span>Upload Photo</span>
+  </label>
+  <div class="cam-retake" id="retake-btn" onclick="retake()">↩ Retake</div>
+  <div class="cam-score-bar" id="cam-score-bar">
+    <div class="csb-inner">
+      <div class="csb-row"><div class="csb-score" id="csb-score">9.0<small>/10</small></div><div class="csb-label">PUMP<br>SCORE</div></div>
+      <div class="csb-tags"><div class="tag to" style="font-size:10px;padding:4px 10px;">Top Tier</div><div class="tag tw" style="font-size:10px;padding:4px 10px;">Pumped</div></div>
     </div>
   </div>
   <div class="cam-ctrl">
-    <div class="cam-side-btn"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></div>
-    <div class="shutter" onclick="analyze()"></div>
-    <div class="cam-side-btn"><svg viewBox="0 0 24 24"><path d="M1 4v6h6"/><path d="M23 20v-6h-6"/><path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15"/></svg></div>
+    <div class="cam-side-btn" onclick="flipCam()"><svg viewBox="0 0 24 24"><path d="M1 4v6h6"/><path d="M23 20v-6h-6"/><path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15"/></svg></div>
+    <div class="shutter" onclick="captureOrAnalyze()"></div>
+    <div class="cam-side-btn"><svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
   </div>
 </div>
 
 <!-- ANALYZING -->
 <div id="analyzing" class="screen">
-  <div class="sb"><span class="sb-t">9:41</span></div>
   <div class="az-wrap">
     <div class="az-orb"><span class="az-fl">🔥</span></div>
     <div class="az-ttl">Analyzing Your Pump</div>
@@ -489,7 +598,7 @@ html,body{width:100%;height:100%;background:var(--bg);font-family:'Barlow',sans-
 
 <!-- RESULTS -->
 <div id="results" class="screen">
-  <div class="res-hd"><div class="back-btn" onclick="showScreen('home')"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>Back</div><div class="res-ttl">Pump Results</div></div>
+  <div class="res-hd"><div class="back-btn" onclick="nav('home')"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>Back</div><div class="res-ttl">Pump Results</div></div>
   <div class="scroll">
     <div class="res-pad">
       <div class="photo-box"><div class="photo-ph" id="photo-ph"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><p>Your pump photo</p></div><img class="res-img" id="res-img" alt=""><div class="photo-ov"><div class="ov-num" id="ov-num">9.1<small>/10</small></div><div class="ov-brand">PUMPD</div></div></div>
@@ -508,7 +617,6 @@ html,body{width:100%;height:100%;background:var(--bg);font-family:'Barlow',sans-
 
 <!-- LEADERBOARD -->
 <div id="leaderboard" class="screen">
-  <div class="sb"><span class="sb-t">9:41</span></div>
   <div class="lb-top"><div class="pg-title">Leaderboards</div></div>
   <div class="lb-tabs"><div class="lb-tab">Friends</div><div class="lb-tab on">Global</div><div class="lb-tab">Regional</div></div>
   <div class="scroll">
@@ -536,7 +644,6 @@ html,body{width:100%;height:100%;background:var(--bg);font-family:'Barlow',sans-
 
 <!-- MY PUMPS -->
 <div id="pump" class="screen">
-  <div class="sb"><span class="sb-t">9:41</span></div>
   <div class="pump-hd"><div class="pump-ttl">My Pumps</div></div>
   <div class="period-row"><button class="period-btn on">7D</button><button class="period-btn">30D</button><button class="period-btn">All</button></div>
   <div class="pump-stats-row">
@@ -565,12 +672,98 @@ html,body{width:100%;height:100%;background:var(--bg);font-family:'Barlow',sans-
 
 </div>
 <script>
-let tmrInt=null,tmrSec=0,sets=0,total=11;
+let tmrInt=null,tmrSec=0,sets=0,total=11,photoData=null,camStream=null,facingMode='environment';
 
-function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');}
-function nav(id){showScreen(id);}
-function goToCamera(){showScreen('camera');setTimeout(()=>{document.getElementById('cam-score-bar').style.display='none';},100);}
-function exitWk(){if(tmrInt){clearInterval(tmrInt);tmrInt=null;}showScreen('workout');}
+function nav(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+function goToCamera(){
+  nav('camera');
+  resetCamUI();
+  startCam();
+}
+
+function resetCamUI(){
+  photoData=null;
+  document.getElementById('cam-preview').style.display='none';
+  document.getElementById('upload-btn').style.display='flex';
+  document.getElementById('retake-btn').style.display='none';
+  document.getElementById('cam-score-bar').style.display='none';
+  document.getElementById('cam-hint').style.display='block';
+  const v=document.getElementById('cam-video');
+  v.style.display='block';
+}
+
+async function startCam(){
+  const v=document.getElementById('cam-video');
+  try{
+    if(camStream){camStream.getTracks().forEach(t=>t.stop());}
+    const stream=await navigator.mediaDevices.getUserMedia({
+      video:{facingMode:facingMode,width:{ideal:1920},height:{ideal:1080}},audio:false
+    });
+    camStream=stream;v.srcObject=stream;
+    // un-mirror for back cam, mirror for front
+    v.className=facingMode==='environment'?'back':'';
+  }catch(e){
+    v.style.display='none';
+    console.log('No camera:',e);
+  }
+}
+
+function stopCam(){
+  if(camStream){camStream.getTracks().forEach(t=>t.stop());camStream=null;}
+}
+
+function flipCam(){
+  facingMode=facingMode==='environment'?'user':'environment';
+  startCam();
+}
+
+function handleUpload(e){
+  const file=e.target.files[0];if(!file)return;
+  const reader=new FileReader();
+  reader.onload=(ev)=>{
+    photoData=ev.target.result;
+    const prev=document.getElementById('cam-preview');
+    prev.src=photoData;prev.style.display='block';
+    document.getElementById('cam-video').style.display='none';
+    document.getElementById('upload-btn').style.display='none';
+    document.getElementById('retake-btn').style.display='block';
+    document.getElementById('cam-score-bar').style.display='block';
+    document.getElementById('cam-hint').style.display='none';
+  };
+  reader.readAsDataURL(file);
+  e.target.value='';
+}
+
+function retake(){
+  photoData=null;
+  document.getElementById('cam-preview').style.display='none';
+  document.getElementById('cam-video').style.display='block';
+  document.getElementById('upload-btn').style.display='flex';
+  document.getElementById('retake-btn').style.display='none';
+  document.getElementById('cam-score-bar').style.display='none';
+  document.getElementById('cam-hint').style.display='block';
+}
+
+function captureOrAnalyze(){
+  if(!photoData){
+    // capture from live camera
+    const v=document.getElementById('cam-video');
+    const c=document.getElementById('cam-canvas');
+    if(v.readyState>=2){
+      c.width=v.videoWidth;c.height=v.videoHeight;
+      c.getContext('2d').drawImage(v,0,0);
+      photoData=c.toDataURL('image/jpeg',0.85);
+    }
+  }
+  stopCam();
+  runAnalyze();
+}
+
+function exitWk(){if(tmrInt){clearInterval(tmrInt);tmrInt=null;}nav('workout');}
 
 function startWk(name){
   document.getElementById('aw-nm').textContent=name;
@@ -578,7 +771,7 @@ function startWk(name){
   document.querySelectorAll('.set-chk').forEach(c=>c.classList.remove('on'));
   document.querySelectorAll('.set-row').forEach(r=>r.classList.remove('done'));
   [1,2,3].forEach(i=>{const b=document.getElementById('eb'+i);b.classList.remove('dn');b.textContent=i;document.getElementById('ec'+i).classList.remove('done');});
-  updProg();showScreen('activeworkout');
+  updProg();nav('activeworkout');
   if(tmrInt)clearInterval(tmrInt);
   tmrSec=0;document.getElementById('tmr').textContent='00:00';
   tmrInt=setInterval(()=>{tmrSec++;const m=String(Math.floor(tmrSec/60)).padStart(2,'0'),s=String(tmrSec%60).padStart(2,'0');document.getElementById('tmr').textContent=m+':'+s;},1000);
@@ -601,19 +794,32 @@ function updProg(){
   document.getElementById('aw-pl').textContent=sets+'/'+total+' sets complete';
 }
 
-async function analyze(){
-  showScreen('analyzing');
+async function runAnalyze(){
+  nav('analyzing');
   const steps=['Calculating pump score...','Analyzing vascularity...','Measuring muscle fullness...','Detecting density...','Generating AI feedback...'];
   let prog=0,si=0;
   const fill=document.getElementById('az-fill'),pct=document.getElementById('az-pct'),sub=document.getElementById('az-sub');
   const iv=setInterval(()=>{prog=Math.min(prog+Math.random()*7+2,92);fill.style.width=prog+'%';pct.textContent=Math.round(prog)+'%';const ni=Math.min(Math.floor((prog/100)*steps.length),steps.length-1);if(ni!==si){si=ni;sub.textContent=steps[si];}},200);
-  const scores=[8.1,8.4,8.7,9.0,9.1,9.3,7.9,8.8];
-  const score=scores[Math.floor(Math.random()*scores.length)];
-  const tg=[['Vascular','Full','On Fire 🔥'],['Dense','Shredded','Elite'],['Full','Pumped','Solid'],['Vascular','Jacked','Aesthetic']];
-  const tags=tg[Math.floor(Math.random()*tg.length)];
-  const fb=['"Insane pump today. Vascularity is next level — veins roadmapping across your arms. Muscle bellies full and dense. This is peak performance."','"Serious pump. Chest is full, shoulders capped, definition is dialed. Keep showing up like this."','"Elite pump. The separation and fullness here is exactly what hard work produces. You\'re building something special."'];
-  const feedback=fb[Math.floor(Math.random()*fb.length)];
-  await new Promise(r=>setTimeout(r,3500));
+
+  let score=null,tags=null,feedback=null;
+  if(photoData){
+    try{
+      const b64=photoData.split(',')[1],mime=photoData.split(';')[0].split(':')[1];
+      const resp=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:300,system:'You are PUMPD AI. Respond with ONLY a raw JSON object. No markdown, no backticks.',messages:[{role:'user',content:[{type:'image',source:{type:'base64',media_type:mime,data:b64}},{type:'text',text:'Rate this gym pump photo. Return ONLY: {"score":8.5,"tags":["Vascular","Full"],"feedback":"hype feedback"}. Score 6.0-9.9. Tags: 2-3 from Vascular/Full/Dense/Shredded/Elite/Jacked/Solid/Pumped/Aesthetic. Feedback: 2-3 hype sentences.'}]}]})});
+      const data=await resp.json();
+      const txt=data.content.map(i=>i.text||'').join('').trim();
+      const match=txt.match(/\{[\s\S]*?\}/);
+      if(match){const p=JSON.parse(match[0]);score=p.score;tags=p.tags;feedback=p.feedback;}
+    }catch(e){console.log('fallback',e);}
+  }
+
+  if(!score){
+    const sc=[8.1,8.4,8.7,9.0,9.1,9.3,7.9,8.8];score=sc[Math.floor(Math.random()*sc.length)];
+    const tg=[['Vascular','Full','On Fire 🔥'],['Dense','Shredded','Elite'],['Full','Pumped','Solid'],['Vascular','Jacked','Aesthetic']];tags=tg[Math.floor(Math.random()*tg.length)];
+    const fb=['"Insane pump. Vascularity is next level — veins roadmapping across your arms. Muscle bellies full and dense. Peak performance."','"Serious pump. Chest is full, shoulders capped, definition is dialed. Keep showing up."','"Elite pump. Separation and fullness here is what hard work produces. Keep going."'];
+    feedback=fb[Math.floor(Math.random()*fb.length)];
+  }
+
   clearInterval(iv);fill.style.width='100%';pct.textContent='100%';sub.textContent='Done!';
   setTimeout(()=>showResults(score,tags,feedback),650);
 }
@@ -625,9 +831,15 @@ function showResults(score,tags,feedback){
   const tc=document.getElementById('res-tags');tc.innerHTML='';
   tags.forEach((t,i)=>{const d=document.createElement('div');d.className='tag '+(i===0?'to':i===2?'tg':'tw');d.textContent=t;tc.appendChild(d);});
   document.getElementById('ai-txt').textContent=feedback;
-  document.getElementById('res-img').style.display='none';
-  document.getElementById('photo-ph').style.display='block';
-  showScreen('results');
+  if(photoData){
+    document.getElementById('res-img').src=photoData;
+    document.getElementById('res-img').style.display='block';
+    document.getElementById('photo-ph').style.display='none';
+  }else{
+    document.getElementById('res-img').style.display='none';
+    document.getElementById('photo-ph').style.display='block';
+  }
+  nav('results');
 }
 </script>
 </body>
