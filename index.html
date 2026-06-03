@@ -274,7 +274,8 @@ html,body{
   left:10px;right:10px;
   bottom:calc(env(safe-area-inset-bottom) + 130px);
   border-radius:30px;
-  object-fit:cover;
+  object-fit:contain;
+  background:#000;
   display:none;
   z-index:3;
 }
@@ -324,7 +325,7 @@ html,body{
 .az-orb::after{content:'';position:absolute;inset:-28px;border-radius:50%;border:1px solid rgba(255,101,0,0.05);animation:rip 2s ease infinite 0.5s;}
 @keyframes rip{0%{opacity:1;transform:scale(1)}100%{opacity:0;transform:scale(1.3)}}
 .az-fl{font-size:52px;}
-.az-ttl{font-family:'Barlow Condensed',sans-serif;font-size:32px;font-weight:900;letter-spacing:2px;text-transform:uppercase;color:var(--t);margin-bottom:8px;}
+.az-ttl{font-family:'Barlow Condensed',sans-serif;font-size:24px;font-weight:900;letter-spacing:2px;text-transform:uppercase;color:var(--t);margin-bottom:8px;white-space:nowrap;}
 .az-sub{font-size:14px;color:var(--t2);margin-bottom:44px;}
 .az-track{width:260px;}
 .az-bar{height:3px;background:rgba(255,255,255,0.05);border-radius:4px;overflow:hidden;margin-bottom:10px;}
@@ -690,7 +691,7 @@ function resetCamUI(){
   document.getElementById('cam-preview').style.display='none';
   document.getElementById('upload-btn').style.display='flex';
   document.getElementById('retake-btn').style.display='none';
-  document.getElementById('cam-score-bar').style.display='none';
+  // cam-score-bar stays hidden
   document.getElementById('cam-hint').style.display='block';
   const v=document.getElementById('cam-video');
   v.style.display='block';
@@ -731,7 +732,7 @@ function handleUpload(e){
     document.getElementById('cam-video').style.display='none';
     document.getElementById('upload-btn').style.display='none';
     document.getElementById('retake-btn').style.display='block';
-    document.getElementById('cam-score-bar').style.display='block';
+    // score shown only on results page
     document.getElementById('cam-hint').style.display='none';
   };
   reader.readAsDataURL(file);
@@ -744,7 +745,7 @@ function retake(){
   document.getElementById('cam-video').style.display='block';
   document.getElementById('upload-btn').style.display='flex';
   document.getElementById('retake-btn').style.display='none';
-  document.getElementById('cam-score-bar').style.display='none';
+  // cam-score-bar stays hidden
   document.getElementById('cam-hint').style.display='block';
 }
 
